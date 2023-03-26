@@ -1,5 +1,6 @@
 import axios from "axios";
 import { APP_CONFIG } from "../shared/app-config/index.js";
+import { calmesePaHandler } from "./moderator/calmese-pa-handler.js";
 
 export const naturalLanguageProcessor = () => {
   const completeText = async (message) => {
@@ -19,10 +20,10 @@ export const naturalLanguageProcessor = () => {
         }}
     );
 
-    return response.data.choices;
+    return response.data.choices[0].text;
   }
 
   return {
-    completeText,
+    completeText: (msg) => calmesePaHandler(msg, completeText),
   }
 }
